@@ -1,6 +1,6 @@
 # simple-scanner
 
-## prerequisite
+## prerequisites
 1. kubernetes cluster
 2. docker
 3. kubernetes binaries
