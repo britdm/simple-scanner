@@ -1,6 +1,12 @@
 # simple-scanner
 
-## applications
+## prerequisite
+1. kubernetes cluster
+2. docker
+3. kubernetes binaries
+4. helm
+
+### applications
 - rancher
 - rocket chat
 - registry
@@ -8,17 +14,17 @@
 - fortify (option?)
 - jira service desk (option?)
 
-## namespaces
+### namespaces
 Apply the `namespaces.yaml` to the cluster before using helm to install the applications.
 
-## software packages
+### software packages
 - rancher cli
 - helm
 - docker
 - docker compose
 - kubernetes libraries
 
-## future goals:
+### future goals:
 1. Support offline deployments
 2. Auto install via terraform or something similar
 3. OpenStack integration
