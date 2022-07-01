@@ -11,11 +11,11 @@
 - rocket chat
 - registry
 - anchore/twistlock
-- fortify (option?)
-- jira service desk (option?)
+- fortify (not yet implemented)
+- jira service desk (not yet implemented)
 
 ### namespaces
-Apply the `namespaces.yaml` to the cluster before using helm to install the applications.
+Apply the `namespaces.yaml` to the cluster before using `helm/install-charts.sh` to install the applications.
 
 ### software packages
 - rancher cli
