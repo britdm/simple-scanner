@@ -13,20 +13,19 @@ helm install rancher rancher-stable/rancher \
   --namespace cattle-system \
   --set hostname=rancher.my.org \
   --set replicas=3
-
 kubectl -n cattle-system rollout status deploy/rancher
 
 # Rocket Chat
-$ helm install --set \
+helm install --set \
  mongodb.mongodbUsername=rocketchat,mongodb.mongodbPassword=changeme,mongodb.mongodbDatabase=rocketchat,mongodb.mongodbRootPassword=root-changeme \
- my-rocketchat stable/rocketchat
+ my-rocketchat stable/rocketchat --namespace rocket-chat
 
 # Registry
 helm repo add twuni https://helm.twun.io
-helm install twuni/docker-registry
+helm install twuni/docker-registry --namespace registry
 
 # Anchore
 helm repo add anchore https://charts.anchore.io
-helm install my-release anchore/anchore-engine
+helm install my-release anchore/anchore-engine --namespace anchore
 
 # Jira Service Management - TBD
