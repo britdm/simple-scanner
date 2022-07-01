@@ -1,7 +1,24 @@
-cattle-system
-*cert-manager
-rocket-chat
-registry
-anchore
-*fortify
-jira-servicemanagement
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cattle-system
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cert-manager
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rocket-chat
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: registry
+---
+apiVersion: v1 # will add fortify and/or jira-servicemanagement apps
+kind: Namespace
+metadata:
+  name: anchore
