@@ -10,8 +10,7 @@
 - rancher
 - rocket chat
 - registry
-- anchore/twistlock
-- fortify (not yet implemented)
+- anchore
 - jira service desk (not yet implemented)
 
 ### namespaces
