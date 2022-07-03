@@ -18,7 +18,7 @@ kind: Namespace
 metadata:
   name: registry
 ---
-apiVersion: v1 # will add fortify and/or jira-servicemanagement apps
+apiVersion: v1 # will add jira-servicemanagement app
 kind: Namespace
 metadata:
   name: anchore
