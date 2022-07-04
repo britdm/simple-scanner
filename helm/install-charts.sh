@@ -8,7 +8,7 @@ export KUBECONFIG=~/.kube/config
 # Install Helm Charts for Applications
 # Rancher
 helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.5.1/cert-manager.crds.yaml
+k3s kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.5.1/cert-manager.crds.yaml
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
 helm install cert-manager jetstack/cert-manager \
