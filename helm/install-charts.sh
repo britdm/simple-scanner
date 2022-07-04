@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # Setup Cluster Access
-sudo mkdir ~/.kube/config
+sudo mkdir -p ~/.kube/
 sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
-export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+export KUBECONFIG=~/.kube/config
 
 # Install Helm Charts for Applications
 # Rancher
