@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Setup Cluster Access
+sudo mkdir ~/.kube/config
+sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+
 # Install Helm Charts for Applications
 # Rancher
 helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
