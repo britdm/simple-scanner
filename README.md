@@ -21,6 +21,7 @@
 > sudo mv linux-amd64/helm /usr/local/bin/helm
 > rm -rf helm-v3.9.0-linux-amd64.tar.gz linux-amd64/
 ```
+5. rancher-cli [x](https://rancher.com/docs/rancher/v2.5/en/cli/)
 
 ### applications
 - rancher
@@ -30,7 +31,7 @@
 - jira service desk (not yet implemented)
 
 ### namespaces
-Apply the `namespaces.yaml` to the cluster before using `helm/install-charts.sh` to install the applications.
+Apply the `namespaces.yaml` to the cluster before using `helm/README.md` to install the applications.
 
 ### software packages
 - rancher cli
