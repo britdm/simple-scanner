@@ -37,10 +37,11 @@ Apply the `namespaces.yaml` to the cluster before using `helm/README.md` to inst
 - rancher cli
 - helm
 - docker
-- docker compose
+- docker compose (optional)
 - kubernetes libraries
 
 ### future goals:
 1. Support offline deployments
 2. Auto install via terraform or something similar
 3. OpenStack integration
+4. Staged repositories
