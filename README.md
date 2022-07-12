@@ -9,7 +9,7 @@
 ```
 > sudo apt install -y docker.io # ubuntu should already have the Docker CLI tool installed.
 ```
-3. kubernetes binaries [x](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux)
+3. kubectl [x](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux)
 ```
 > curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 > sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl # follow instructions for install with non-root access
@@ -38,7 +38,7 @@ Apply the `namespaces.yaml` to the cluster before using `helm/README.md` to inst
 - helm
 - docker
 - docker compose (optional)
-- kubernetes libraries
+- kubectl
 
 ### future goals:
 1. Support offline deployments
