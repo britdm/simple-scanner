@@ -44,4 +44,4 @@ Apply the `namespaces.yaml` to the cluster before using `helm/README.md` to inst
 1. Support offline deployments
 2. Auto install via terraform or something similar
 3. OpenStack integration
-4. Staged repositories
+4. Staged registries
