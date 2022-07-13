@@ -21,7 +21,7 @@
 > sudo mv linux-amd64/helm /usr/local/bin/helm
 > rm -rf helm-v3.9.0-linux-amd64.tar.gz linux-amd64/
 ```
-5. rancher-cli [x](https://rancher.com/docs/rancher/v2.5/en/cli/)
+5. rancher-cli [x](https://rancher.com/docs/rancher/v2.5/en/cli/#download-rancher-cli)
 
 ### applications
 - rancher
