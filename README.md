@@ -23,6 +23,11 @@
 ```
 5. rancher-cli [x](https://rancher.com/docs/rancher/v2.5/en/cli/#download-rancher-cli)
 
+6. k3d [x](https://k3d.io/v5.4.4/#install-script)
+```
+> curl https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+```
+
 ### applications
 - rancher
 - rocket chat
@@ -39,9 +44,69 @@ Apply the `namespaces.yaml` to the cluster before using `helm/README.md` to inst
 - docker
 - docker compose (optional)
 - kubectl
+- k3d
 
 ### future goals:
 1. Support offline deployments
 2. Auto install via terraform or something similar
 3. OpenStack integration
 4. Staged registries
+
+## instructions
+
+### setup k3d cluster
+```
+k3d cluster create [cluster-name]
+```
+
+### save kubeconfig of cluster
+Ensure that the KUBECONFIG variable is pointing to the correct file.
+```
+k3d kubeconfig get [cluster-name] > /home/brittany/.kube/config
+kubectl cluster-info
+```
+
+### deploy namespcaes
+```
+kubectl create -f namespaces.yaml
+```
+
+### add helm charts
+```
+helm repo add jetstack https://charts.jetstack.io # cert-manager
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.8.2/cert-manager.crds.yaml
+
+helm repo add rancher-latest https://releases.rancher.com/server-charts/latest # rancher
+
+helm repo add rocketchat https://rocketchat.github.io/helm-charts # rocketchat
+
+helm repo add twuni https://helm.twun.io # registry
+
+helm repo add anchore https://charts.anchore.io # anchore
+
+helm repo update
+```
+
+# install charts
+```
+helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --version v1.8.2 \
+  --set installCRDs=true
+
+helm install rancher rancher-latest/rancher \
+  --namespace cattle-system \
+  --set hostname=rancher.my.org \
+  --set ingress.tls.source=letsEncrypt \
+  --set letsEncrypt.email=me@example.org
+
+helm install \
+    rocketchat rocketchat/rocketchat \
+    --namespace rocketchat \ 
+    --set mongodb.auth.password=$(echo -n $(openssl rand -base64 32)),mongodb.auth.rootPassword=$(echo -n $(openssl rand -base64 32))
+
+helm install registry twuni/docker-registry --namespace registry
+
+
+```
