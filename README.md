@@ -78,6 +78,8 @@ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/
 
 helm repo add rancher-latest https://releases.rancher.com/server-charts/latest # rancher
 
+helm repo add bitnami https://charts.bitnami.com/bitnami # mongodb
+
 helm repo add rocketchat-server https://rocketchat.github.io/helm-charts # rocketchat
 
 helm repo add twuni https://helm.twun.io # registry
@@ -100,6 +102,9 @@ helm install rancher rancher-latest/rancher \
   --set hostname=rancher.my.org \
   --set ingress.tls.source=letsEncrypt \
   --set letsEncrypt.email=me@example.org
+  
+helm install mongodb bitnami/mongodb \
+   --namespace rocketchat
 
 helm install \
     rocketchat rocketchat-server/rocketchat \
