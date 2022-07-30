@@ -78,7 +78,7 @@ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/
 
 helm repo add rancher-latest https://releases.rancher.com/server-charts/latest # rancher
 
-helm repo add rocketchat https://rocketchat.github.io/helm-charts # rocketchat
+helm repo add rocketchat-server https://rocketchat.github.io/helm-charts # rocketchat
 
 helm repo add twuni https://helm.twun.io # registry
 
@@ -102,7 +102,7 @@ helm install rancher rancher-latest/rancher \
   --set letsEncrypt.email=me@example.org
 
 helm install \
-    rocketchat rocketchat/rocketchat \
+    rocketchat rocketchat-server/rocketchat \
     --namespace rocketchat \ 
     --set mongodb.auth.password=$(echo -n $(openssl rand -base64 32)),mongodb.auth.rootPassword=$(echo -n $(openssl rand -base64 32))
 
