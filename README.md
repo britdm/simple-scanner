@@ -107,6 +107,9 @@ helm install \
     --set mongodb.auth.password=$(echo -n $(openssl rand -base64 32)),mongodb.auth.rootPassword=$(echo -n $(openssl rand -base64 32))
 
 helm install registry twuni/docker-registry --namespace registry
+```
 
-
+# change rancher admin password
+```
+kubectl -n cattle-system exec $(kubectl -n cattle-system get pods -l app=rancher | grep '1/1' | head -1 | awk '{ print $1 }') -- reset-password
 ```
