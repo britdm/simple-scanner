@@ -114,7 +114,12 @@ helm install \
 helm install registry twuni/docker-registry --namespace registry
 ```
 
-# change rancher admin password
+# rancher
+## change rancher admin password
 ```
 kubectl -n cattle-system exec $(kubectl -n cattle-system get pods -l app=rancher | grep '1/1' | head -1 | awk '{ print $1 }') -- reset-password
+```
+## change rancher service type
+```
+kubectl patch svc rancher -n cattle-system -p '{"spec": {"type": "NodePort"}}'
 ```
