@@ -1,9 +1,19 @@
 #!/bin/sh
 
 # Setup Cluster Access
-sudo mkdir -p ~/.kube/
-sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
-export KUBECONFIG=~/.kube/config
+#sudo mkdir -p ~/.kube/
+#sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+#export KUBECONFIG=~/.kube/config
+
+# Download charts
+# see defaults
+helm pull --version v1.5.1 jetstack/cert-manager
+helm pull rocketchat-server/rocketchat
+helm pull rancher-latest/rancher
+helm pull bitnami/mongodb
+helm pull joxit/docker-registry-ui
+helm pull 
+
 
 # Install Helm Charts for Applications
 # Rancher
@@ -28,8 +38,10 @@ helm install --set \
  my-rocketchat stable/rocketchat --namespace rocket-chat
 
 # Registry
-helm repo add twuni https://helm.twun.io
-helm install twuni/docker-registry --namespace registry
+helm repo add joxit https://helm.joxit.dev
+helm install docker-registry-ui joxit/docker-registry-ui \
+  --namespace registry \
+  --set registry.enabled=true
 
 # Anchore
 helm repo add anchore https://charts.anchore.io
