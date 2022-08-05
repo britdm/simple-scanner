@@ -1,19 +1,13 @@
 #!/bin/sh
 
-# Setup Cluster Access
-#sudo mkdir -p ~/.kube/
-#sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
-#export KUBECONFIG=~/.kube/config
+export KUBECONFIG=~/.kube/config
 
 # Download charts
-# see defaults
-helm pull --version v1.5.1 jetstack/cert-manager
-helm pull rocketchat-server/rocketchat
-helm pull rancher-latest/rancher
-helm pull bitnami/mongodb
-helm pull joxit/docker-registry-ui
-helm pull 
-
+# helm pull --version v1.5.1 jetstack/cert-manager
+# helm pull joxit/docker-registry-ui
+# helm pull rocketchat-server/rocketchat
+# helm pull rancher-latest/rancher
+# helm pull bitnami/mongodb
 
 # Install Helm Charts for Applications
 # Rancher
@@ -46,5 +40,3 @@ helm install docker-registry-ui joxit/docker-registry-ui \
 # Anchore
 helm repo add anchore https://charts.anchore.io
 helm install my-release anchore/anchore-engine --namespace anchore
-
-# Jira Service Management - TBD

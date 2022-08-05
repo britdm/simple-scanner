@@ -1,50 +1,24 @@
 # simple-scanner
 
 ## required software packages
-1. kubernetes cluster [k3s - Lightweight Kubernetes](https://k3s.io/)
-```
-> curl -sfL https://get.k3s.io | sh -
-```
-2. docker [x](https://docs.docker.com/engine/install/ubuntu/)
-```
-> sudo apt install -y docker.io # ubuntu should already have the Docker CLI tool installed.
-```
-3. kubectl [x](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux)
-```
-> curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-> sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl # follow instructions for install with non-root access
-```
-4. helm [x](https://helm.sh/docs/intro/install/)
-```
-> curl -LO https://get.helm.sh/helm-v3.9.0-linux-amd64.tar.gz
-> tar -xf helm-v3.9.0-linux-amd64.tar.gz
-> sudo mv linux-amd64/helm /usr/local/bin/helm
-> rm -rf helm-v3.9.0-linux-amd64.tar.gz linux-amd64/
-```
-5. rancher-cli [x](https://rancher.com/docs/rancher/v2.5/en/cli/#download-rancher-cli)
+1. k3d [x](https://k3d.io/v5.4.4/#install-script)
 
-6. k3d [x](https://k3d.io/v5.4.4/#install-script)
-```
-> curl https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
-```
+2. docker [x](https://docs.docker.com/engine/install/ubuntu/)
+
+3. kubectl [x](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux)
+&nbsp;3a. kubectl-ssh plugin [x](https://github.com/luksa/kubectl-plugins/blob/master/kubectl-ssh)
+&nbsp;&nbsp; ```curl -O https://github.com/luksa/kubectl-plugins/blob/master/kubectl-ssh```
+&nbsp;&nbsp; ```chmod +x kubectl-ssh && sudo mv kubectl-ssh /usr/local/bin/kubectl-ssh```
+
+4. helm [x](https://helm.sh/docs/intro/install/)
+
+5. rancher-cli [x](https://rancher.com/docs/rancher/v2.5/en/cli/#download-rancher-cli)
 
 ### applications
 - rancher
-- rocket chat
+- rocketchat
 - registry
 - anchore
-- jira service desk (not yet implemented)
-
-### namespaces
-Apply the `namespaces.yaml` to the cluster before using `helm/README.md` to install the applications.
-
-### software packages
-- rancher cli
-- helm
-- docker
-- docker compose (optional)
-- kubectl
-- k3d
 
 ### future goals:
 1. Support offline deployments
@@ -53,7 +27,6 @@ Apply the `namespaces.yaml` to the cluster before using `helm/README.md` to inst
 4. Staged registries
 
 ## instructions
-
 ### setup k3d cluster
 ```
 k3d cluster create [cluster-name]
@@ -62,13 +35,14 @@ k3d cluster create [cluster-name]
 ### save kubeconfig of cluster
 Ensure that the KUBECONFIG variable is pointing to the correct file.
 ```
-k3d kubeconfig get [cluster-name] > /home/brittany/.kube/config
+mkdir $HOME/.kube/
+k3d kubeconfig get [cluster-name] > [$HOME]/.kube/config # may require full path
 kubectl cluster-info
 ```
 
 ### deploy namespcaes
 ```
-kubectl create -f namespaces.yaml
+kubectl create -f helm/namespaces.yaml
 ```
 
 ### add helm charts
