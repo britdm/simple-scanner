@@ -26,10 +26,17 @@
 3. OpenStack integration
 4. Staged registries
 
-## instructions
+## cluster setup instructions
+### create k3d hosted registry
+```
+k3d registry create [registry-name] -p 0.0.0.0:[port] # optional port assignment
+k3d registry list # get generated registry name
+docker ps -f name=[registry-name] # find local port if not assigned
+```
+
 ### setup k3d cluster
 ```
-k3d cluster create [cluster-name]
+k3d cluster create [cluster-name] --use-registry [registry-name]
 ```
 
 ### save kubeconfig of cluster
@@ -48,52 +55,22 @@ kubectl create -f helm/namespaces.yaml
 ### add helm charts
 ```
 helm repo add jetstack https://charts.jetstack.io # cert-manager
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.8.2/cert-manager.crds.yaml
-
 helm repo add rancher-latest https://releases.rancher.com/server-charts/latest # rancher
-
 helm repo add bitnami https://charts.bitnami.com/bitnami # mongodb
-
 helm repo add rocketchat-server https://rocketchat.github.io/helm-charts # rocketchat
-
-helm repo add twuni https://helm.twun.io # registry
-
 helm repo add anchore https://charts.anchore.io # anchore
-
 helm repo update
 ```
 
-# install charts
+## application deployment instructions
+### install cert-manager
 ```
 helm install \
   cert-manager jetstack/cert-manager \
   --namespace cert-manager \
   --version v1.8.2 \
   --set installCRDs=true
-
-helm install rancher rancher-latest/rancher \
-  --namespace cattle-system \
-  --set hostname=rancher.my.org \
-  --set ingress.tls.source=letsEncrypt \
-  --set letsEncrypt.email=me@example.org
-  
-helm install mongodb bitnami/mongodb \
-   --namespace rocketchat
-
-helm install \
-    rocketchat rocketchat-server/rocketchat \
-    --namespace rocketchat \ 
-    --set mongodb.auth.password=$(echo -n $(openssl rand -base64 32)),mongodb.auth.rootPassword=$(echo -n $(openssl rand -base64 32))
-
-helm install registry twuni/docker-registry --namespace registry
 ```
 
-# rancher
-## change rancher admin password
-```
-kubectl -n cattle-system exec $(kubectl -n cattle-system get pods -l app=rancher | grep '1/1' | head -1 | awk '{ print $1 }') -- reset-password
-```
-## change rancher service type
-```
-kubectl patch svc rancher -n cattle-system -p '{"spec": {"type": "NodePort"}}'
+### install docker-registry-ui
 ```
