@@ -2,6 +2,7 @@
 version 1.0
 
 ## quickstart
+Setup local private registry.
 ```docker run -p 5000:5000 brittanym/registry:1.0```
 
 ### login information
@@ -12,3 +13,7 @@ Log in:
 
 (Optional) Overwrite or replace `/auth/.htpasswd` file using:
 ```htpasswd -c admin [new_password] > /auth/.htpasswd```
+
+## Squid Proxy Setup
+<mark>This application is not yet supported.</mark>
+Using the docker-registry-cache repository may be a solution to satisfy secure registry requirements for the docker-registry-ui

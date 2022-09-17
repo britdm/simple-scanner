@@ -1,3 +1,4 @@
+##### This application is not yet supported. #####
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:

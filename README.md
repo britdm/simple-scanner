@@ -12,13 +12,10 @@
 
 4. helm [x](https://helm.sh/docs/intro/install/)
 
-5. rancher-cli [x](https://rancher.com/docs/rancher/v2.5/en/cli/#download-rancher-cli)
-
 ### applications
-- rancher
 - rocketchat
 - registry
-- anchore
+- anchore/grype
 
 ### future goals:
 1. Support offline deployments
@@ -27,17 +24,29 @@
 4. Staged registries
 
 ## cluster setup instructions
-### create k3d hosted registry
+### Option 1 
+#### create k3d hosted registry
+<mark>This option is not yet supported.</mark>
 ```
 k3d registry create [registry-name] -p 0.0.0.0:[port] # optional port assignment
 k3d registry list # get generated registry name
 docker ps -f name=[registry-name] # find local port if not assigned
 ```
 
-### setup k3d cluster
+#### setup k3d cluster
+<mark>The `--use-registry` option is not yet supported.</mark>
 ```
 k3d cluster create [cluster-name] --use-registry [registry-name]
 ```
+
+### Option 2
+#### setup k3d cluster
+```
+k3d cluster create [cluster-name]
+```
+
+#### create registry using repository
+Use the instructions in `./registry/httpd-registry` to build and deploy a local private registry. 
 
 ### save kubeconfig of cluster
 Ensure that the KUBECONFIG variable is pointing to the correct file.
@@ -52,25 +61,6 @@ kubectl cluster-info
 kubectl create -f helm/namespaces.yaml
 ```
 
-### add helm charts
-```
-helm repo add jetstack https://charts.jetstack.io # cert-manager
-helm repo add rancher-latest https://releases.rancher.com/server-charts/latest # rancher
-helm repo add bitnami https://charts.bitnami.com/bitnami # mongodb
-helm repo add rocketchat-server https://rocketchat.github.io/helm-charts # rocketchat
-helm repo add anchore https://charts.anchore.io # anchore
-helm repo update
-```
+### install helm charts
+Follow the instructions found in `./helm/README.md`
 
-## application deployment instructions
-### install cert-manager
-```
-helm install \
-  cert-manager jetstack/cert-manager \
-  --namespace cert-manager \
-  --version v1.8.2 \
-  --set installCRDs=true
-```
-
-### install docker-registry-ui
-```

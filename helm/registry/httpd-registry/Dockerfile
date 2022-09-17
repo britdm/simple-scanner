@@ -9,7 +9,7 @@ RUN mkdir auth && mkdir certs \
 
 FROM registry:2
 RUN apk update
-COPY README.md /
+COPY . /
 COPY --from=builder /auth/.htpasswd /auth/.htpasswd
 COPY --from=builder /certs/registry.key /certs/registry.key
 COPY --from=builder /certs/registry.crt /certs/registry.crt

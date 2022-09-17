@@ -1,4 +1,6 @@
 # rancher
+<mark>This application is not yet supported.</mark>
+
 ## deploy rancher
 ```
 helm install rancher rancher-latest/rancher \

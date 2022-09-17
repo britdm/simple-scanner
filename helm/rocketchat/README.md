@@ -1,6 +1,9 @@
 # rocketchat
+<mark>This application is not yet supported.</mark>
+
 ## instructions
-### install helm chart(s)
+
+### helm chart
 ```
 helm install rocketchat rocketchat/rocketchat \
 ---namespace rocketchat \
