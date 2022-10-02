@@ -7,6 +7,14 @@ RUN mkdir certs \
      -subj "/C=US/ST=Texas/L=Austin/O=Company/CN=www.example.com"
 
 FROM registry:2.7.0
+
+ENV REGISTRY_AUTH=htpasswd
+ENV REGISTRY_AUTH_HTPASSWD_REALM=Registry\ Realm
+ENV REGISTRY_AUTH_HTPASSWD_PATH=/auth/.htpasswd
+ENV REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin=[\"*\"]
+ENV REGISTRY_HTTP_TLS_CERTIFICATE=/certs/registry.crt 
+ENV REGISTRY_HTTP_TLS_KEY=/certs/registry.key
+
 RUN apk update
 COPY . /
 COPY --from=builder /certs/registry.key /certs/registry.key
