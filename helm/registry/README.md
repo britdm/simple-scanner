@@ -1,14 +1,15 @@
 # docker registry
 ---
-based off of concepts from [cluster registry](https://medium.com/swlh/deploy-your-private-docker-registry-as-a-pod-in-kubernetes-f6a489bf0180) and the [docker-registry-ui](https://github.com/Joxit/docker-registry-ui) project
-
-commands use relative paths
+Includes the [docker-registry-ui](https://github.com/Joxit/docker-registry-ui) project.
 
 ## instructions
+### assumptions
+- the intended kubernetes cluster is not a production cluster
 ### setup registry
-Pull down [brittanym/registry:1.0])(https://hub.docker.com/r/brittanym/registry), it includes a default `.htpasswd` file in `/auth/.htpasswd`.
+Pull down [brittanym/registry:2.0])(https://hub.docker.com/r/brittanym/registry) from Docker Hub, it includes a default `.htpasswd` file in `/auth/.htpasswd`. Start up a detached container. sSave a copy of the `tls.crt` and `tls.key` files to be used as desired.
 
-Save login as kubernetes secret copy `.htpasswd` file to the local workspace from the image and create a generic auth-secret.
+#### unsupported kubernetes setup
+Save the login as a kubernetes secret by first copying the htpasswd file into the local workspace from the image and the creating a generic Kubernetes auth-secret.
 
 ```kubectl create secret generic auth-secret --from=.htpasswd```
 
@@ -16,7 +17,7 @@ For the `tls.crt` and `tls.key` files, copy the to the local workspace from the 
 
 ```kubectl create secret tls certs-secret --cert=tls.crt --key=tls.key```
 
-### deplpoy the registry and registry-ui
+### deplpoy the registry-ui
 ```
 helm install docker-registry-ui joxit/docker-registry-ui \
   --namespace registry \

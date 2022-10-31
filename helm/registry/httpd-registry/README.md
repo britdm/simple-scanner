@@ -1,10 +1,10 @@
 # registry
-version 1.0
+version 2.0
 
 ## quickstart
-Setup local private registry.
+Setup local private registry for testing.
 ```
-    docker run -p 5000:5000 --rm --name registry brittanym/registry:1.0
+    docker run -p 5000:5000 --rm --name registry brittanym/registry:2.0
 ```
 
 ### login information
