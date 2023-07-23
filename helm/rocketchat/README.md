@@ -4,10 +4,10 @@
 
 ## instructions
 
+Deploy the helm chart using the `values.yaml` file.
+
 ### helm chart
 
 ```
-helm install rocketchat rocketchat/rocketchat \
----namespace rocketchat \
---set mongodb.auth.password=$(echo -n $(pwgen 20 1)),mongodb.auth.rootPassword=$(echo -n $(pwgen 20 1))
+helm install rocketchat -f values.yaml rocketchat/rocketchat -n rocketchat
 ```
