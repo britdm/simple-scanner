@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # From: https://github.com/Joxit/docker-registry-ui#recommended-docker-registry-usage
+  registry-ui:
+    image: joxit/docker-registry-ui:main
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      - SINGLE_REGISTRY=true
+      - REGISTRY_TITLE=Registry
+      - DELETE_IMAGES=true
+      - SHOW_CONTENT_DIGEST=true
+      - NGINX_PROXY_PASS_URL=http://registry-server:5000
+      - SHOW_CATALOG_NB_TAGS=true
+      - CATALOG_MIN_BRANCHES=1
+      - CATALOG_MAX_BRANCHES=1
+      - TAGLIST_PAGE_SIZE=100
+      - REGISTRY_SECURED=false
+      - CATALOG_ELEMENTS_LIMIT=1000
+    container_name: registry-ui
+  registry-server:
+    image:  registry:2.8.2
+    restart: always
+    ports:
+      - 5000:5000
+    environment:
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin: '[http://registry.example.com]'
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods: '[HEAD,GET,OPTIONS,DELETE]'
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Credentials: '[true]'
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers: '[Authorization,Accept,Cache-Control]'
+      REGISTRY_HTTP_HEADERS_Access-Control-Expose-Headers: '[Docker-Content-Digest]'
+      REGISTRY_STORAGE_DELETE_ENABLED: 'true'
+    volumes:
+      - ./registry/data:/var/lib/registry
+    container_name: registry-server
+  # From: https://hub.docker.com/r/mattermost/mattermost-preview
+  mattermost-preview:
+    image: mattermost/mattermost-preview
+    restart: always
+    ports:
+      - 8065:8065
+    container_name: mattermost-preview
+  # From: https://hub.docker.com/r/brittanym/trivy
+  trivy:
+    image: brittanym/trivy
+    restart: always
+    container_name: trivy
+    tty: true
