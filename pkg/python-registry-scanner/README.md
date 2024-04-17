@@ -1,5 +1,4 @@
-# python-dockerfileregistry-scanner
-alpha repository
+# python-registry-scanner
 
 Scripts are created to scan an insecure private Docker registry at port `5000` with the basic authentication from `brittanym/registry:2.0`.
 
